@@ -2,6 +2,10 @@
 Servo robot;
 long lastTime;
 int quietPeriod = 500;
+int i = 0;
+const int s = 100;
+const int m = 500;
+const int g = 1000;
 
 volatile int state = LOW;
 
@@ -20,7 +24,7 @@ void loop()
   {
     emote();
     state = LOW;
-    delay(2000);
+    delay(2*g);
     resetQuietPeriod();
   }
   if (millis() - lastTime > quietPeriod)
@@ -36,6 +40,15 @@ void resetQuietPeriod()
   lastTime = millis();
 }
 
+void move(int positions[], int numberOfPositions)
+{
+  for (i = 0; i < numberOfPositions; i += 2)
+  {
+    robot.write(positions[i]);
+    delay(positions[i+1]);
+  }
+}
+
 void react()
 {
   state = HIGH;
@@ -43,34 +56,21 @@ void react()
 
 void emote()
 {
-  robot.write(160);
-  delay(100);
-  robot.write(80);
-  delay(100);
-  robot.write(160);
-  delay(100);
-  robot.write(80);
-  delay(100);
-  robot.write(160);
-  delay(100);
-  robot.write(80);
-  delay(2000);
+  const int num = 12;
+  int positions[num] = {160, s, 
+     80, s, 160, s, 
+     80, s, 160, s, 
+     80, g * 2};
+  move(positions, num);
 }
 
 void fidget()
 {
-  robot.write(30);
-  delay(100);
-  robot.write(120);
-  delay(500);
-  robot.write(90);
-  delay(100);
-  robot.write(120);
-  delay(100);
-  robot.write(90);
-  delay(100);
-  robot.write(120);
-  delay(100);
-  robot.write(50);
-  delay(1000);
+  const int num = 14;
+  int positions[num] = {
+    30, s, 120, m, 
+    90, s, 120, s, 
+    90, s, 120, s,
+    50, g};
+  move(positions, num);
 }
