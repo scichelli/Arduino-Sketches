@@ -24,13 +24,15 @@ void loop()
   {
     emote();
     state = LOW;
-    delay(2*g);
-    resetQuietPeriod();
   }
   if (millis() - lastTime > quietPeriod)
   {
-    fidget();
-    resetQuietPeriod();
+    i = random(1, 4);
+    if (i == 1) {
+      fidget();
+    } else {
+      twitch();
+    }
   }
 }
 
@@ -47,6 +49,7 @@ void move(int positions[], int numberOfPositions)
     robot.write(positions[i]);
     delay(positions[i+1]);
   }
+  resetQuietPeriod();
 }
 
 void react()
@@ -73,4 +76,10 @@ void fidget()
     90, s, 120, s,
     50, g};
   move(positions, num);
+}
+
+void twitch()
+{
+  int positions[2] = {90, m};
+  move(positions, 2);
 }
