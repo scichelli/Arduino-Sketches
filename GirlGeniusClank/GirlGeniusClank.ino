@@ -4,17 +4,22 @@ Servo robot;
 long lastTime;
 int quietPeriod = 500;
 int i = 0;
-const int s = 100;
-const int m = 500;
-const int g = 1000;
-
+//durations
+const int quick = 100;
+const int medium = 500;
+const int slow = 1000;
+//positions
+const int top = 58;
+const int center = 73;
+const int bottom = 88;
 volatile int state = LOW;
 
 void setup()
 {
+  Serial.begin(9600);
   robot.attach(9);
   robot.write(0);
-  lastTime = 0;
+  lastTime = millis();
   attachInterrupt(0, react, RISING);
 }
 
@@ -47,7 +52,14 @@ void move(int positions[], int numberOfPositions)
 {
   for (i = 0; i < numberOfPositions; i += 2)
   {
+    Serial.print("To: ");
+    Serial.println(positions[i]);
+    
     robot.write(positions[i]);
+    
+    Serial.print("Waiting: ");
+    Serial.println(positions[i+1]);
+    
     delay(positions[i+1]);
   }
   resetQuietPeriod();
@@ -66,10 +78,10 @@ void emote()
     delay(10);
   }
   const int num = 12;
-  int positions[num] = {160, s, 
-     80, s, 160, s, 
-     80, s, 160, s, 
-     80, g * 2};
+  int positions[num] = {top, quick, 
+     center, quick, top, quick, 
+     center, quick, top, quick, 
+     center, slow * 2};
   move(positions, num);
 }
 
@@ -77,15 +89,15 @@ void fidget()
 {
   const int num = 14;
   int positions[num] = {
-    30, s, 120, m, 
-    90, s, 120, s, 
-    90, s, 120, s,
-    50, g};
+    bottom, quick, top, medium, 
+    center, quick, top, quick, 
+    center, quick, top, quick,
+    bottom, slow};
   move(positions, num);
 }
 
 void twitch()
 {
-  int positions[2] = {90, m};
-  move(positions, 2);
+  int positions[4] = {bottom, quick, center, medium};
+  move(positions, 4);
 }
