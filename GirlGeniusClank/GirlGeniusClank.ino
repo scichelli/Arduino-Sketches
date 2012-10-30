@@ -1,4 +1,5 @@
 #include <Servo.h>
+
 Servo robot;
 long lastTime;
 int quietPeriod = 500;
@@ -59,6 +60,11 @@ void react()
 
 void emote()
 {
+  for (i = 1000; i < 4000; i += 100)
+  {
+    tone(8, i, 100);
+    delay(10);
+  }
   const int num = 12;
   int positions[num] = {160, s, 
      80, s, 160, s, 
