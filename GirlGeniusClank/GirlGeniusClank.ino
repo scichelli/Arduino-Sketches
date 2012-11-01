@@ -1,9 +1,10 @@
 #include <Servo.h>
 
 Servo robot;
-long lastTime;
-int quietPeriod = 500;
 int i = 0;
+long lastTime;
+int quietPeriod = 0;
+const int quietFactor = 100;
 //durations
 const int quick = 100;
 const int medium = 500;
@@ -44,7 +45,7 @@ void loop()
 
 void resetQuietPeriod()
 {
-  quietPeriod = random(9, 25) * 100;
+  quietPeriod = random(5, 25) * quietFactor;
   lastTime = millis();
 }
 
