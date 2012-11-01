@@ -9,23 +9,21 @@ const int quick = 100;
 const int medium = 500;
 const int slow = 1000;
 //positions
-const int top = 58;
-const int center = 73;
-const int bottom = 88;
+int center = 90;
+int top = 90 + 5;
+int bottom = 90 - 5;
 volatile int state = LOW;
 
 void setup()
 {
-  Serial.begin(9600);
   robot.attach(9);
-  robot.write(0);
+  robot.write(center);
   lastTime = millis();
   attachInterrupt(0, react, RISING);
 }
 
 void loop()
 {
-  robot.write(0);
   if (state == HIGH)
   {
     emote();
@@ -52,14 +50,7 @@ void move(int positions[], int numberOfPositions)
 {
   for (i = 0; i < numberOfPositions; i += 2)
   {
-    Serial.print("To: ");
-    Serial.println(positions[i]);
-    
     robot.write(positions[i]);
-    
-    Serial.print("Waiting: ");
-    Serial.println(positions[i+1]);
-    
     delay(positions[i+1]);
   }
   resetQuietPeriod();
@@ -70,13 +61,18 @@ void react()
   state = HIGH;
 }
 
-void emote()
+void bweep()
 {
   for (i = 1000; i < 4000; i += 100)
   {
     tone(8, i, 100);
     delay(10);
   }
+}
+
+void emote()
+{
+  bweep();
   const int num = 12;
   int positions[num] = {top, quick, 
      center, quick, top, quick, 
