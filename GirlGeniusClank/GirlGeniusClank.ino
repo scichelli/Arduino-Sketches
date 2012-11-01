@@ -31,11 +31,13 @@ void loop()
   }
   if (millis() - lastTime > quietPeriod)
   {
-    i = random(1, 4);
+    i = random(1, 5);
     if (i == 1) {
       fidget();
+    } else if (i == 2 || i == 3) {
+      twitchLeft();
     } else {
-      twitch();
+      twitchRight();
     }
   }
 }
@@ -73,27 +75,39 @@ void bweep()
 void emote()
 {
   bweep();
-  const int num = 12;
-  int positions[num] = {top, quick, 
-     center, quick, top, quick, 
-     center, quick, top, quick, 
+  const int num = 16;
+  int positions[num] = {
+     top, quick, center, quick, 
+     top, quick, center, quick, 
+     bottom, quick, center, quick,
+     bottom, quick,
      center, slow * 2};
   move(positions, num);
 }
 
 void fidget()
 {
-  const int num = 14;
+  const int num = 16;
   int positions[num] = {
     bottom, quick, top, medium, 
     center, quick, top, quick, 
     center, quick, top, quick,
-    bottom, slow};
+    bottom, slow, center, slow};
   move(positions, num);
 }
 
-void twitch()
+void twitchLeft()
 {
-  int positions[4] = {bottom, quick, center, medium};
+  twitch(bottom);
+}
+
+void twitchRight()
+{
+  twitch(top);
+}
+
+void twitch(int firstDirection)
+{
+  int positions[4] = {firstDirection, quick, center, medium};
   move(positions, 4);
 }
