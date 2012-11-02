@@ -12,12 +12,12 @@ int interval;
 int i = 0;
 
 //durations
-const int quick = 100;
-const int medium = 500;
-const int slow = 1000;
+const int quick = 200;
+const int medium = 600;
+const int slow = 2000;
 //positions
 int center = 90;
-int range = 5;
+int range = 10;
 int top = center + range;
 int bottom = center - range;
 
@@ -82,20 +82,22 @@ void doState()
 void react()
 {
   state = EMOTING;
+  interval = 0;
+  i = 0;
 }
 
 void bweep()
 {
-  for (i = 1000; i < 4000; i += 100)
+  for (int b = 1000; b < 4000; b += 100)
   {
-    tone(8, i, 100);
+    tone(8, b, 100);
     delay(10);
   }
 }
 
 void randomBehavior()
 {
-  state = random(1, 3);
+  state = random(1, 4);
 }
 
 void twitchLeft()
@@ -146,7 +148,7 @@ void goQuiet()
 {
   i = 0;
   state = QUIET;
-  interval = random(5, 25) * 100;
+  interval = random(1, 5) * 1000;
 }
 
 void move(int positions[])
