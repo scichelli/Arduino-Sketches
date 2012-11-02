@@ -12,16 +12,17 @@ int interval;
 int i = 0;
 
 //durations
-const int quick = 200;
+const int quick = 100;
 const int medium = 600;
 const int slow = 2000;
 //positions
-int center = 90;
+int center = 80;
 int range = 10;
 int top = center + range;
 int bottom = center - range;
 
-int emotePositions[16] = {
+int emotePositions[20] = {
+   top, quick, center, quick, 
    top, quick, center, quick, 
    top, quick, center, quick, 
    bottom, quick, center, quick,
@@ -132,7 +133,7 @@ void fidget()
 
 void emote()
 {
-  if (i > 16)
+  if (i > 20)
   {
     goQuiet();
     return;
