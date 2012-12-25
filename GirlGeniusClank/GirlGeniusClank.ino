@@ -16,8 +16,8 @@ const int quick = 100;
 const int medium = 600;
 const int slow = 2000;
 //positions
-int center = 80;
-int range = 10;
+int center = 70;
+int range = 15;
 int top = center + range;
 int bottom = center - range;
 
@@ -39,7 +39,7 @@ int twitchRpositions[4] = {top, quick, center, medium};
 void setup()
 {
   robot.attach(9);
-  attachInterrupt(0, react, RISING);
+  attachInterrupt(0, react, FALLING);
   
   Serial.begin(9600);
 }
