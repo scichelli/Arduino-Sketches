@@ -40,8 +40,6 @@ void setup()
 {
   robot.attach(9);
   attachInterrupt(0, react, FALLING);
-  
-  Serial.begin(9600);
 }
 
 void loop()
@@ -56,8 +54,6 @@ void loop()
 
 void doState()
 {
-  Serial.println(state);
-  
   switch(state)
   {
     case QUIET:
@@ -154,11 +150,6 @@ void goQuiet()
 
 void move(int positions[])
 {
-  Serial.print("To: ");
-  Serial.println(positions[i]);
-  Serial.print("Interval: ");
-  Serial.println(positions[i+1]);
-
   robot.write(positions[i]);
   delay(10);
   interval = positions[i+1];
