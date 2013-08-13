@@ -1,9 +1,9 @@
 #include <Servo.h>
-#define QUIET 0
-#define TWITCHINGR 1
-#define TWITCHINGL 2
-#define FIDGETING 3
-#define EMOTING 4
+const int QUIET = 0;
+const int TWITCHINGR = 1;
+const int TWITCHINGL = 2;
+const int FIDGETING = 3;
+const int EMOTING = 4;
 
 volatile int state = QUIET;
 Servo robot;
