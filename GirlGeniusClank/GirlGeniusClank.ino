@@ -16,7 +16,7 @@ const int quick = 100;
 const int medium = 600;
 const int slow = 2000;
 //positions
-int center = 70;
+int center = 50;
 int range = 15;
 int top = center + range;
 int bottom = center - range;
@@ -145,7 +145,7 @@ void goQuiet()
 {
   i = 0;
   state = QUIET;
-  interval = random(1, 5) * 1000;
+  interval = random(1, 5) * 600;
 }
 
 void move(int positions[])
