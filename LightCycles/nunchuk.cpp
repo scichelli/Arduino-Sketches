@@ -1,4 +1,4 @@
-#include <WProgram.h>
+#include <Arduino.h>
 #include <Wire.h>
 #include "nunchuk.h"
 
@@ -7,8 +7,8 @@
 void Nunchuk::initialize() {
   Wire.begin();
   Wire.beginTransmission(NUNCHUK_DEVICE_ID);
-  Wire.send(0x40);
-  Wire.send(0x00);
+  Wire.write(0x40);
+  Wire.write(0x00);
   Wire.endTransmission();
   update();
 }
@@ -18,14 +18,14 @@ bool Nunchuk::update() {
   Wire.requestFrom(NUNCHUK_DEVICE_ID, NUNCHUK_BUFFER_SIZE);
   int byte_counter = 0;
   while (Wire.available() && byte_counter < NUNCHUK_BUFFER_SIZE)
-    _buffer[byte_counter++] = decode_byte(Wire.receive());
+    _buffer[byte_counter++] = decode_byte(Wire.read());
   request_data();
   return byte_counter == NUNCHUK_BUFFER_SIZE;
 }
 
 void Nunchuk::request_data() {
   Wire.beginTransmission(NUNCHUK_DEVICE_ID);
-  Wire.send(0x00);
+  Wire.write(0x00);
   Wire.endTransmission();
 }
 
